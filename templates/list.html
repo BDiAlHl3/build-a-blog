@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>List of Last 5 Blogs Added</h1>
+
+{% for blog in blogs %}
+    <div class="blog">
+        <hr>
+        <div><label>
+                    <strong>Blog Title:</strong>
+                          {{blog.title}}
+             </label>
+        </div>
+        <br>
+        <div class=blog-title>
+            <strong>Blog Contents</strong>
+        </div>
+        <div class="blog-body">
+
+                {{blog.blog}}
+
+        </div>
+    </div>
+{% endfor %}
+
+{% endblock %}
