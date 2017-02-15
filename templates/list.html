@@ -3,13 +3,15 @@
 {% block content %}
 
 <h1>List of Last 5 Blogs Added</h1>
-
+<form action="/list" method="post">
 {% for blog in blogs %}
     <div class="blog">
         <hr>
         <div><label>
                     <strong>Blog Title:</strong>
-                          {{blog.title}}
+                          <a href="/blog/{{blog.key().id()}}">
+                              {{blog.title}}
+                          </a>
              </label>
         </div>
         <br>
@@ -23,5 +25,6 @@
         </div>
     </div>
 {% endfor %}
+</form>
 
 {% endblock %}
