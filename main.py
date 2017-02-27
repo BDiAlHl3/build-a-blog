@@ -51,7 +51,6 @@ class RootHandler(BaseHandler):
         error=""
         # Create an instance for retrieving from the database ...
         blogs=db.GqlQuery("SELECT * FROM Blog ORDER BY created DESC")
-        #t = jinja_env.get_template("base.html")
         t = jinja_env.get_template("front-page.html")
 
         content=t.render(blogs=blogs)
@@ -63,9 +62,6 @@ class RootHandler(BaseHandler):
         blog=self.request.get("blog")
 
         if title and blog:
-            #self.response.write("thanks")
-
-
             a=Blog(title=title,blog=blog) # Create an instance of Blog ...
             a.put()
 
@@ -83,24 +79,14 @@ class ListBlogs(BaseHandler):
 
     def get(self):
         blogs=db.GqlQuery("SELECT * FROM Blog ORDER BY created DESC LIMIT 5")
-        #t = jinja_env.get_template("base.html")
         t = jinja_env.get_template("list.html")
 
         content=t.render(blogs=blogs)
 
         self.response.write(content)
-        #self.response.write("Control passed to /list")
+
     def post(self):
-        # Add the blog.key().id() here ...
-        #self.response.write("Setting up the 'a' object ...")
-        #a=db.GqlQuery("SELECT * FROM Blog WHERE title=title")
-        k=blog.key(a).id()
-        if not k:
-            self.response.write("Object k was not established")
-        else:
-            self.response.write("Object k was established")
-            #self.redirect("/blog/"+str(int(k)))
-            #self.response.write("Control passed to /list")
+        pass
 
 class AddBlogs(BaseHandler):
     def get(self):
@@ -109,16 +95,15 @@ class AddBlogs(BaseHandler):
         content=t.render()
 
         self.response.write(content)
-        #self.response.write("Control passed to /add")
 
     def post(self):
+        title=""
+        blog=""
         title=self.request.get("title")
         blog=self.request.get("blog")
 
         if title and blog:
-            #self.response.write("thanks")
             good_msg="Your blog has been added to the database."
-
             a=Blog(title=title,blog=blog) # Create an instance of Blog ...
             a.put()
             # Add the blog.key().id() here ...
@@ -130,19 +115,12 @@ class AddBlogs(BaseHandler):
                 self.redirect("/blog/"+str(int(k)))
         else:
             incomplete_err = "we need both a title and some blog contents!"
-
             t = jinja_env.get_template("post-new.html")
-
             content = t.render(title=title,blog=blog,error=incomplete_err)
             self.response.write(content)
 
-
-        #self.response.write("Control passed to /add")
-
-#class ViewPostHandler(webapp2.RequestHandler):
 class ViewBlog(BaseHandler):
     def get(self, id):
-        #pass #replace this with some code to handle the request
         #instance=Blog.get_by_id(int('5770237022568448'),Parent=None)
         rec=Blog.get_by_id(int(id))
         if rec:

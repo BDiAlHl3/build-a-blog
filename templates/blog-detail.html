@@ -2,9 +2,17 @@
 
 {% block content %}
 
+<!--
 <ul>
-    <li>{{blog.title}}</li>
+    <li><strong>Blog Title:      </strong>{{blog.title}}</li>
     <br>
     <li>{{blog.blog}}</li>
 </ul>
+-->
+
+<label><strong>Blog Title:&emsp;&emsp;&emsp;&emsp;</strong>{{blog.title}}</label>
+<br>
+<label<strong>Blog Contents:</strong></label>
+<label>{{blog.blog}}</label>
+
 {% endblock %}
